@@ -1,6 +1,8 @@
-﻿namespace BacklogTracker.ViewModels
+﻿using CommunityToolkit.Mvvm.ComponentModel;
+
+namespace BacklogTracker.ViewModels
 {
-    internal class GameDetailsViewModel
+    public partial class GameDetailsViewModel : ObservableObject
     {
 
     }
