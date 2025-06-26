@@ -14,24 +14,18 @@ namespace BacklogTracker.ViewModels
         private string newGameTitle;
 
         [ObservableProperty]
-        private string newGamePlatform;
+        private GamePlatform newGamePlatform;
+        public List<GamePlatform> GamePlatformList { get; } = Enum.GetValues(typeof(GamePlatform)).Cast<GamePlatform>().ToList();
 
         [ObservableProperty]
-        private string newGameStatus;
+        private GameStatus newGameStatus;
+        public List<GameStatus> GameStatusList { get; } = Enum.GetValues(typeof(GameStatus)).Cast<GameStatus>().ToList();
 
         [ObservableProperty]
         private float newGameHoursPlayed;
 
         [ObservableProperty]
-        private ObservableCollection<Game> gameList = new();
-
-        public GameListViewModel()
-        {
-            GameList = new ObservableCollection<Game>
-            {
-                new Game("Test Title", "Test Platform", "Test Status", 0)
-            };
-        }
+        private ObservableCollection<GameEntity> gameList = new();
 
         [RelayCommand]
         private Task ShowAddGameView()

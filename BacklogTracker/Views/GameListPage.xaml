@@ -24,14 +24,10 @@
 
         <HorizontalStackLayout IsVisible="{Binding IsAddViewVisible}">
             <Entry Placeholder="Enter Game Title" Text="{Binding NewGameTitle}"/>
-            <Entry Placeholder="Enter Game Platform" Text="{Binding NewGamePlatform}"/>
-            <Entry Placeholder="Enter Game Status" Text="{Binding NewGameStatus}"/>
-            <Label Text="{Binding NewGameHoursPlayed}" />
-            <Stepper
-             Minimum="0"
-             Maximum="10000"
-             Increment="1"
-             Value="{Binding NewGameHoursPlayed, Mode=TwoWay}" />      
+            <Picker Title="Game Platform" ItemsSource="{Binding GamePlatformList}" SelectedItem="{Binding NewGamePlatform}"/>
+            <Picker Title="Game Status" ItemsSource="{Binding GameStatusList}" SelectedItem="{Binding NewGameStatus}"/>
+            <Label Text="{Binding NewGameHoursPlayed}"/>
+            <Stepper Minimum="0" Maximum="10000" Increment="1" Value="{Binding NewGameHoursPlayed, Mode=TwoWay}"/>
             <Button Text="Save" Command="{Binding AddGameToListCommand}"/>
         </HorizontalStackLayout>
 
