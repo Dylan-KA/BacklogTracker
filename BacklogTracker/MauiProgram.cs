@@ -23,6 +23,9 @@ namespace BacklogTracker
             builder.Services.AddSingleton<GameListViewModel>();
             builder.Services.AddSingleton<GameListPage>();
 
+            builder.Services.AddTransient<GameDetailsViewModel>();
+            builder.Services.AddTransient<GameDetailsPage>();
+
 #if DEBUG
             builder.Logging.AddDebug();
 #endif

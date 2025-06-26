@@ -1,7 +1,9 @@
 ﻿using BacklogTracker.Models;
+using BacklogTracker.Views;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 
 namespace BacklogTracker.ViewModels
 {
@@ -16,7 +18,7 @@ namespace BacklogTracker.ViewModels
             _ = LoadGamesFromDatabase();
         }
 
-        private async Task LoadGamesFromDatabase()
+        public async Task LoadGamesFromDatabase()
         {
             await _localDBService.InitializeAsync();
             var games = await _localDBService.GetGameAsync();
@@ -46,13 +48,6 @@ namespace BacklogTracker.ViewModels
         private ObservableCollection<Game> gameList;
 
         [RelayCommand]
-        private Task ShowAddGameView()
-        {
-            IsAddViewVisible = true;
-            return Task.CompletedTask;
-        }
-
-        [RelayCommand]
         private async Task AddGameToList()
         {
             var newGame = new Game
@@ -79,6 +74,27 @@ namespace BacklogTracker.ViewModels
         {
             await _localDBService.DeleteGameAsync(game);
             GameList.Remove(game);
+        }
+
+        [RelayCommand]
+        private async Task GoToEditView(Game game)
+        {
+            if (game == null) return;
+
+            await Shell.Current.GoToAsync(
+                $"{nameof(GameDetailsPage)}",
+                true,
+                new Dictionary<string, object>
+                {
+                    { "Game", game }
+                });
+        }
+
+        [RelayCommand]
+        private Task ShowAddGameView()
+        {
+            IsAddViewVisible = true;
+            return Task.CompletedTask;
         }
 
         private void HideAddGameView()

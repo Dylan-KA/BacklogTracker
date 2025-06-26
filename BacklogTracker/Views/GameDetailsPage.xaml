@@ -2,16 +2,23 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="BacklogTracker.Views.GameDetailsPage"
-             Title="Game Details Page"
+             Title="{Binding Game.Title}"
              xmlns:viewModel="clr-namespace:BacklogTracker.ViewModels"
              x:DataType="viewModel:GameDetailsViewModel"
              >
     <VerticalStackLayout>
-        <Label 
-            Text="Game Details Page"
+        <Label
+            Text="{Binding Game.Title}"
             VerticalOptions="Center" 
             HorizontalOptions="Center"
             FontSize="Title"
         />
+        <Picker Title="Game Platform" ItemsSource="{Binding GamePlatformList}" SelectedItem="{Binding Game.Platform}"/>
+        <Picker Title="Game Status" ItemsSource="{Binding GameStatusList}" SelectedItem="{Binding Game.Status}"/>
+        <Label Text="{Binding Game.HoursPlayed}"/>
+        <Stepper Minimum="0" Maximum="10000" Increment="1" Value="{Binding Game.HoursPlayed, Mode=TwoWay}"/>
+        <Entry Text="{Binding Game.Notes}"/>
+        <Button Text="Save" Command="{Binding SaveGameCommand}"/>
+        <Button Text="Delete" Command="{Binding RemoveGameCommand}"/>
     </VerticalStackLayout>
 </ContentPage>

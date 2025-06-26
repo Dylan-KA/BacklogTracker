@@ -9,6 +9,7 @@ namespace BacklogTracker
             InitializeComponent();
 
             Routing.RegisterRoute(nameof(GameListPage), typeof(GameListPage));
+            Routing.RegisterRoute(nameof(GameDetailsPage), typeof(GameDetailsPage));
         }
     }
 }
