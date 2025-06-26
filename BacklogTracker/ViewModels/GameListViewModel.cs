@@ -13,11 +13,12 @@ namespace BacklogTracker.ViewModels
         {
             _localDBService = dBService;
             GameList = new ObservableCollection<Game>();
-            LoadGamesFromDatabase();
+            _ = LoadGamesFromDatabase();
         }
 
-        private async void LoadGamesFromDatabase()
+        private async Task LoadGamesFromDatabase()
         {
+            await _localDBService.InitializeAsync();
             var games = await _localDBService.GetGameAsync();
             GameList.Clear();
             foreach (var game in games)
@@ -71,6 +72,13 @@ namespace BacklogTracker.ViewModels
             NewGamePlatform = GamePlatform.Other;
             NewGameStatus = GameStatus.Backlog;
             NewGameHoursPlayed = 0;
+        }
+
+        [RelayCommand]
+        private async Task RemoveGameFromList(Game game)
+        {
+            await _localDBService.DeleteGameAsync(game);
+            GameList.Remove(game);
         }
 
         private void HideAddGameView()

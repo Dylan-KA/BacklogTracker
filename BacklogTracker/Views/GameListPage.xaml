@@ -39,6 +39,11 @@
                         <Label Text="{Binding Platform}" />
                         <Label Text="{Binding Status}" />
                         <Label Text="{Binding HoursPlayed}" />
+                        <Button Text="Remove Game" 
+                            Command="{Binding Source={RelativeSource 
+                                AncestorType={x:Type viewModel:GameListViewModel}}, 
+                                Path=RemoveGameFromListCommand}"
+                            CommandParameter="{Binding .}"/>
                     </VerticalStackLayout>
                 </DataTemplate>
             </CollectionView.ItemTemplate>

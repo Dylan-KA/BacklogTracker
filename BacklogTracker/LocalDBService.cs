@@ -7,10 +7,21 @@ namespace BacklogTracker.Models
         private const string DB_NAME = "game_local_db.db3";
         private readonly SQLiteAsyncConnection _connection;
 
+        private bool _isInitialized = false;
+
         public LocalDBService()
         {
-            _connection = new SQLiteAsyncConnection(Path.Combine(FileSystem.AppDataDirectory, DB_NAME));
-            _connection.CreateTableAsync<Game>();
+            var dbPath = Path.Combine(FileSystem.AppDataDirectory, DB_NAME);
+            _connection = new SQLiteAsyncConnection(dbPath);
+        }
+
+        public async Task InitializeAsync()
+        {
+            if (_isInitialized)
+                return;
+
+            await _connection.CreateTableAsync<Game>();
+            _isInitialized = true;
         }
 
         public async Task<List<Game>> GetGameAsync() => await _connection.Table<Game>().ToListAsync();
