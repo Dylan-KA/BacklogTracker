@@ -1,22 +1,26 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
+using SQLite;
 
 namespace BacklogTracker.Models
 {
-    public partial class Game : ObservableObject
+    [Table("games")]
+    public class Game()
     {
-        public string Title { get; set; } = string.Empty;
-        public GamePlatform Platform { get; set; } = GamePlatform.Other;
-        public GameStatus Status { get; set; } = GameStatus.Backlog;
-        public float HoursPlayed { get; set; } = 0;
-        public string Notes { get; set; } = string.Empty;
-
-        public Game(string title, GamePlatform platform, GameStatus status, float hoursPlayed)
-        {
-            Title = title;
-            Platform = platform;
-            Status = status;
-            HoursPlayed = hoursPlayed;
-        }
+        [Unique]
+        [PrimaryKey]
+        [AutoIncrement]
+        [Column("id")]
+        public int Id { get; set; }
+        [Column("title")]
+        public string Title { get; set; }
+        [Column("platform")]
+        public GamePlatform Platform { get; set; }
+        [Column("status")]
+        public GameStatus Status { get; set; }
+        [Column("hours_played")]
+        public float HoursPlayed { get; set; }
+        [Column("notes")]
+        public string Notes { get; set; }
     }
 
     public enum GameStatus

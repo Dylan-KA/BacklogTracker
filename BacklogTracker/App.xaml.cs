@@ -1,8 +1,10 @@
-﻿namespace BacklogTracker
+﻿using BacklogTracker.Views;
+
+namespace BacklogTracker
 {
     public partial class App : Application
     {
-        public App()
+        public App(GameListPage gameListPage)
         {
             InitializeComponent();
 

@@ -1,4 +1,7 @@
-﻿using Microsoft.Extensions.Logging;
+﻿using BacklogTracker.Models;
+using BacklogTracker.ViewModels;
+using BacklogTracker.Views;
+using Microsoft.Extensions.Logging;
 
 namespace BacklogTracker
 {
@@ -14,9 +17,14 @@ namespace BacklogTracker
                     fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
                     fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
                 });
-             
+
+            builder.Services.AddSingleton<App>();
+            builder.Services.AddSingleton<LocalDBService>();
+            builder.Services.AddSingleton<GameListViewModel>();
+            builder.Services.AddSingleton<GameListPage>();
+
 #if DEBUG
-    		builder.Logging.AddDebug();
+            builder.Logging.AddDebug();
 #endif
 
             return builder.Build();

@@ -1,15 +1,14 @@
 using BacklogTracker.ViewModels;
-using System.Diagnostics;
 
 namespace BacklogTracker.Views;
 
 public partial class GameListPage : ContentPage
 {
 
-    public GameListPage()
+    public GameListPage(GameListViewModel viewModel)
     {
         InitializeComponent();
-        BindingContext = new GameListViewModel();
+        BindingContext = viewModel;
     }
 
 }

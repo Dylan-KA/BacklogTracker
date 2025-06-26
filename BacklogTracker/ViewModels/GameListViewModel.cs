@@ -7,6 +7,23 @@ namespace BacklogTracker.ViewModels
 {
     public partial class GameListViewModel : ObservableObject
     {
+        private readonly LocalDBService _localDBService;
+
+        public GameListViewModel(LocalDBService dBService)
+        {
+            _localDBService = dBService;
+            GameList = new ObservableCollection<Game>();
+            LoadGamesFromDatabase();
+        }
+
+        private async void LoadGamesFromDatabase()
+        {
+            var games = await _localDBService.GetGameAsync();
+            GameList.Clear();
+            foreach (var game in games)
+                GameList.Add(game);
+        }
+
         [ObservableProperty]
         private bool isAddViewVisible;
 
@@ -25,7 +42,7 @@ namespace BacklogTracker.ViewModels
         private float newGameHoursPlayed;
 
         [ObservableProperty]
-        private ObservableCollection<GameEntity> gameList = new();
+        private ObservableCollection<Game> gameList;
 
         [RelayCommand]
         private Task ShowAddGameView()
@@ -35,12 +52,25 @@ namespace BacklogTracker.ViewModels
         }
 
         [RelayCommand]
-        private Task AddGameToList()
+        private async Task AddGameToList()
         {
-            Game newGame = new Game(NewGameTitle, NewGamePlatform, NewGameStatus, NewGameHoursPlayed);
+            var newGame = new Game
+            {
+                Title = NewGameTitle,
+                Platform = NewGamePlatform,
+                Status = NewGameStatus,
+                HoursPlayed = NewGameHoursPlayed
+            };
+
+            await _localDBService.AddGameAsync(newGame);
             GameList.Add(newGame);
             HideAddGameView();
-            return Task.CompletedTask;
+
+            // Clear form fields
+            NewGameTitle = string.Empty;
+            NewGamePlatform = GamePlatform.Other;
+            NewGameStatus = GameStatus.Backlog;
+            NewGameHoursPlayed = 0;
         }
 
         private void HideAddGameView()
