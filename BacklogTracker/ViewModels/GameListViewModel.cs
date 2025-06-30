@@ -3,7 +3,6 @@ using BacklogTracker.Views;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using System.Collections.ObjectModel;
-using System.Diagnostics;
 
 namespace BacklogTracker.ViewModels
 {
@@ -26,6 +25,9 @@ namespace BacklogTracker.ViewModels
             foreach (var game in games)
                 GameList.Add(game);
         }
+
+        [ObservableProperty]
+        private int columnSpan = 5;
 
         [ObservableProperty]
         private bool isAddViewVisible;
