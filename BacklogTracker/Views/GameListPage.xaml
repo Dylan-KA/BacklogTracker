@@ -6,22 +6,33 @@
              xmlns:models="clr-namespace:BacklogTracker.Models"
              x:DataType="viewModel:GameListViewModel"
              >
-    <VerticalStackLayout Padding="50">
-        <Label 
-            Text="Game Library"
-            VerticalOptions="Center" 
-            HorizontalOptions="Start"
-            FontSize="48"
-            Padding="0, 10, 0, 30"
-        />
-        
-        <HorizontalStackLayout>
-            <SearchBar>
-                <SearchBar.Placeholder>Search your game Library</SearchBar.Placeholder>
-            </SearchBar>
-            <Button Text="Add Game" Command="{Binding ShowAddGameViewCommand}" />
-        </HorizontalStackLayout>
+    <Grid Padding="50">
+        <Grid.RowDefinitions>
+            <RowDefinition />
+            <RowDefinition />
+            <RowDefinition />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition />
+            <ColumnDefinition />
+        </Grid.ColumnDefinitions>
 
+        <VerticalStackLayout>
+            <Label 
+                Text="Game Library"
+                VerticalOptions="Center" 
+                HorizontalOptions="Start"
+                FontSize="48"
+                Padding="0, 10, 0, 30"
+            />
+            <HorizontalStackLayout>
+                <SearchBar MinimumWidthRequest="250" MaximumWidthRequest="500">
+                    <SearchBar.Placeholder>Search your game Library</SearchBar.Placeholder>
+                </SearchBar>
+                <Button Text="Add Game" Command="{Binding ShowAddGameViewCommand}" />
+            </HorizontalStackLayout>
+        </VerticalStackLayout>
+     
         <HorizontalStackLayout IsVisible="{Binding IsAddViewVisible}">
             <Entry Placeholder="Enter Game Title" Text="{Binding NewGameTitle}"/>
             <Picker Title="Game Platform" ItemsSource="{Binding GamePlatformList}" SelectedItem="{Binding NewGamePlatform}"/>
@@ -31,7 +42,7 @@
             <Button Text="Save" Command="{Binding AddGameToListCommand}"/>
         </HorizontalStackLayout>
 
-        <CollectionView ItemsSource="{Binding GameList}" >
+        <CollectionView ItemsSource="{Binding GameList}" Grid.ColumnSpan="2" Grid.RowSpan="2" Grid.Row="1">
             <CollectionView.ItemsLayout>
                 <GridItemsLayout Orientation="Vertical"
                                  Span="{Binding ColumnSpan}"
@@ -40,25 +51,62 @@
             </CollectionView.ItemsLayout>
             <CollectionView.ItemTemplate>
                 <DataTemplate x:DataType="models:Game">
-                    <Frame  
-                            HeightRequest="300"
+                    <Frame  HeightRequest="300"
+                            WidthRequest="300"
                             Margin="5"
                             BackgroundColor="LightGray">
-                        <VerticalStackLayout>
-                            <Label Text="{Binding Title}" />
-                            <Label Text="{Binding Platform}" />
-                            <Label Text="{Binding Status}" />
-                            <Label Text="{Binding HoursPlayed}" />
-                            <Button Text="Edit Game"
-                            Command="{Binding Source={RelativeSource 
-                                AncestorType={x:Type viewModel:GameListViewModel}}, 
-                                Path=GoToEditViewCommand}"
-                            CommandParameter="{Binding .}"/>
-                        </VerticalStackLayout>
+                        <Grid RowDefinitions="*, Auto" Padding="10" ColumnSpacing="10">
+                            <!-- Top section -->
+                            <VerticalStackLayout Grid.Row="0" Spacing="4">
+                                <!-- Game Title -->
+                                <Label Text="{Binding Title}" 
+                                       FontSize="18" 
+                                       FontAttributes="Bold" 
+                                       TextColor="White"/>
+
+                                <!-- Status Badge -->
+                                <Frame
+                                        BackgroundColor="LightBlue"
+                                        CornerRadius="10"
+                                        WidthRequest="110"
+                                        BorderColor="Transparent"
+                                        Padding="10"
+                                        HorizontalOptions="Start">
+                                    <Label Text="{Binding Status}" 
+                                           TextColor="Black" 
+                                           FontAttributes="Bold"
+                                           Padding="1"
+                                           HorizontalOptions="Start" />
+                                </Frame>
+
+                                <!-- Platform -->
+                                <Label Text="{Binding Platform}" 
+                                       TextColor="White" />
+                            </VerticalStackLayout>
+
+                            <!-- Bottom section -->
+                            <Grid Grid.Row="1" VerticalOptions="Center" ColumnDefinitions="*, Auto" ColumnSpacing="10">
+                                <!-- Hours played -->
+                                <Label Text="{Binding HoursPlayed, StringFormat='{}{0} h'}" 
+                                       TextColor="White" 
+                                       VerticalOptions="Center"
+                                       Grid.Column="0" />
+
+                                <!-- Edit button -->
+                                <Button Text="Edit"
+                                        Command="{Binding Source={RelativeSource AncestorType={x:Type viewModel:GameListViewModel}}, Path=GoToEditViewCommand}"
+                                        CommandParameter="{Binding .}" 
+                                        FontSize="12"
+                                        FontAttributes="Bold"
+                                        Padding="10,2"
+                                        VerticalOptions="Center"
+                                        Grid.Column="1"/>
+                            </Grid>
+                        </Grid>
                     </Frame>
                 </DataTemplate>
             </CollectionView.ItemTemplate>
         </CollectionView>
 
-    </VerticalStackLayout>
+    </Grid>
 </ContentPage>

@@ -1,4 +1,5 @@
 using BacklogTracker.ViewModels;
+using System.Diagnostics;
 
 namespace BacklogTracker.Views;
 
@@ -27,17 +28,19 @@ public partial class GameListPage : ContentPage
     {
         var width = this.Width;
 
-        if (width < 500)
+        //Debug.WriteLine($"Width {width}");
+
+        if (width < 745)
             ViewModel.ColumnSpan = 1;
-        else if (width < 800)
+        else if (width < 1075)
             ViewModel.ColumnSpan = 2;
-        else if (width < 1100)
+        else if (width < 1405)
             ViewModel.ColumnSpan = 3;
-        else if (width < 1400)
+        else if (width < 1735)
             ViewModel.ColumnSpan = 4;
-        else if (width < 1700)
+        else if (width < 2065)
             ViewModel.ColumnSpan = 5;
-        else if (width < 2000)
+        else if (width < 2395)
             ViewModel.ColumnSpan = 6;
         else
             ViewModel.ColumnSpan = 7;
