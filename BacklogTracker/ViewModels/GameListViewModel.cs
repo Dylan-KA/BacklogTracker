@@ -20,56 +20,21 @@ namespace BacklogTracker.ViewModels
         public async Task LoadGamesFromDatabase()
         {
             await _localDBService.InitializeAsync();
-            var games = await _localDBService.GetGameAsync();
-            GameList.Clear();
-            foreach (var game in games)
-                GameList.Add(game);
+            var games = await _localDBService.GetGameListAsync();
+
+            var newList = new ObservableCollection<Game>(games);
+
+            await MainThread.InvokeOnMainThreadAsync(() =>
+            {
+                GameList = newList;
+            });
         }
 
         [ObservableProperty]
         private int columnSpan = 5;
 
         [ObservableProperty]
-        private bool isAddViewVisible;
-
-        [ObservableProperty]
-        private string newGameTitle;
-
-        [ObservableProperty]
-        private GamePlatform newGamePlatform;
-        public List<GamePlatform> GamePlatformList { get; } = Enum.GetValues(typeof(GamePlatform)).Cast<GamePlatform>().ToList();
-
-        [ObservableProperty]
-        private GameStatus newGameStatus;
-        public List<GameStatus> GameStatusList { get; } = Enum.GetValues(typeof(GameStatus)).Cast<GameStatus>().ToList();
-
-        [ObservableProperty]
-        private float newGameHoursPlayed;
-
-        [ObservableProperty]
         private ObservableCollection<Game> gameList;
-
-        [RelayCommand]
-        private async Task AddGameToList()
-        {
-            var newGame = new Game
-            {
-                Title = NewGameTitle,
-                Platform = NewGamePlatform,
-                Status = NewGameStatus,
-                HoursPlayed = NewGameHoursPlayed
-            };
-
-            await _localDBService.AddGameAsync(newGame);
-            GameList.Add(newGame);
-            HideAddGameView();
-
-            // Clear form fields
-            NewGameTitle = string.Empty;
-            NewGamePlatform = GamePlatform.Other;
-            NewGameStatus = GameStatus.Backlog;
-            NewGameHoursPlayed = 0;
-        }
 
         [RelayCommand]
         private async Task RemoveGameFromList(Game game)
@@ -93,15 +58,17 @@ namespace BacklogTracker.ViewModels
         }
 
         [RelayCommand]
-        private Task ShowAddGameView()
+        private async Task GoToAddView()
         {
-            IsAddViewVisible = true;
-            return Task.CompletedTask;
-        }
-
-        private void HideAddGameView()
-        {
-            IsAddViewVisible = false;
+            Game game = new Game();
+            
+            await Shell.Current.GoToAsync(
+                $"{nameof(GameDetailsPage)}",
+                true,
+                new Dictionary<string, object>
+                {
+                    { "Game", game }
+                });
         }
 
     }

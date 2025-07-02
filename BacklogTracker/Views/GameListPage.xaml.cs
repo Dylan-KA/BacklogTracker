@@ -1,5 +1,4 @@
 using BacklogTracker.ViewModels;
-using System.Diagnostics;
 
 namespace BacklogTracker.Views;
 
@@ -15,15 +14,17 @@ public partial class GameListPage : ContentPage
         SizeChanged += OnSizeChanged;
     }
     
+    
     protected override async void OnAppearing()
     {
         base.OnAppearing();
 
         if (BindingContext is GameListViewModel viewModel)
         {
-            await viewModel.LoadGamesFromDatabase();
+            _ = viewModel.LoadGamesFromDatabase();
         }
     }
+    
     private void OnSizeChanged(object sender, EventArgs e)
     {
         var width = this.Width;

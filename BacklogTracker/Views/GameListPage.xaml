@@ -8,8 +8,8 @@
              >
     <Grid Padding="50">
         <Grid.RowDefinitions>
-            <RowDefinition />
-            <RowDefinition />
+            <RowDefinition Height="100"/>
+            <RowDefinition Height="50"/>
             <RowDefinition />
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
@@ -17,32 +17,24 @@
             <ColumnDefinition />
         </Grid.ColumnDefinitions>
 
-        <VerticalStackLayout>
-            <Label 
-                Text="Game Library"
-                VerticalOptions="Center" 
-                HorizontalOptions="Start"
-                FontSize="48"
-                Padding="0, 10, 0, 30"
-            />
-            <HorizontalStackLayout>
-                <SearchBar MinimumWidthRequest="250" MaximumWidthRequest="500">
-                    <SearchBar.Placeholder>Search your game Library</SearchBar.Placeholder>
-                </SearchBar>
-                <Button Text="Add Game" Command="{Binding ShowAddGameViewCommand}" />
-            </HorizontalStackLayout>
-        </VerticalStackLayout>
-     
-        <HorizontalStackLayout IsVisible="{Binding IsAddViewVisible}">
-            <Entry Placeholder="Enter Game Title" Text="{Binding NewGameTitle}"/>
-            <Picker Title="Game Platform" ItemsSource="{Binding GamePlatformList}" SelectedItem="{Binding NewGamePlatform}"/>
-            <Picker Title="Game Status" ItemsSource="{Binding GameStatusList}" SelectedItem="{Binding NewGameStatus}"/>
-            <Label Text="{Binding NewGameHoursPlayed}"/>
-            <Stepper Minimum="0" Maximum="10000" Increment="1" Value="{Binding NewGameHoursPlayed, Mode=TwoWay}"/>
-            <Button Text="Save" Command="{Binding AddGameToListCommand}"/>
+        <Label 
+            Text="Game Library"
+            Grid.Row="0"
+            Grid.Column="0"
+            Grid.ColumnSpan="2"
+            VerticalOptions="Start" 
+            HorizontalOptions="Start"
+            FontSize="48"
+        />
+        
+        <HorizontalStackLayout Grid.Row="1" Grid.Column="0">
+            <SearchBar MinimumWidthRequest="250" MaximumWidthRequest="500">
+                <SearchBar.Placeholder>Search your game Library</SearchBar.Placeholder>
+            </SearchBar>
+            <Button Text="Add Game" Command="{Binding GoToAddViewCommand}" />
         </HorizontalStackLayout>
 
-        <CollectionView ItemsSource="{Binding GameList}" Grid.ColumnSpan="2" Grid.RowSpan="2" Grid.Row="1">
+        <CollectionView ItemsSource="{Binding GameList}" Grid.Row="2" Grid.RowSpan="2" Grid.Column="0" Grid.ColumnSpan="2" HorizontalOptions="Start">
             <CollectionView.ItemsLayout>
                 <GridItemsLayout Orientation="Vertical"
                                  Span="{Binding ColumnSpan}"

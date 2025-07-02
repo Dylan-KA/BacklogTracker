@@ -2,6 +2,7 @@
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 
 namespace BacklogTracker.ViewModels
 {
@@ -23,7 +24,15 @@ namespace BacklogTracker.ViewModels
         [RelayCommand]
         async Task SaveGame()
         {
-            await _localDBService.UpdateGameAsync(Game);
+            if (Game.Id > 0)
+            {
+                Debug.WriteLine("Updating game in database");
+                await _localDBService.UpdateGameAsync(Game);
+            } else
+            {
+                Debug.WriteLine("Adding new game to database");
+                await _localDBService.AddGameAsync(Game);
+            }
             await Shell.Current.GoToAsync("..");
         }
 
