@@ -44,7 +44,7 @@ public partial class GameListPage : ContentPage
         else if (width < 2395)
             ViewModel.ColumnSpan = 6;
         else
-            ViewModel.ColumnSpan = 7;
+            ViewModel.ColumnSpan = 6;
     }
 
 }
