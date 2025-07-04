@@ -3,6 +3,7 @@ using BacklogTracker.Views;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 
 namespace BacklogTracker.ViewModels
 {
@@ -14,6 +15,7 @@ namespace BacklogTracker.ViewModels
         {
             _localDBService = dBService;
             GameList = new ObservableCollection<Game>();
+            SearchFilteredGameList = new ObservableCollection<Game>();
             _ = LoadGamesFromDatabase();
         }
 
@@ -27,6 +29,7 @@ namespace BacklogTracker.ViewModels
             await MainThread.InvokeOnMainThreadAsync(() =>
             {
                 GameList = newList;
+                SearchFilteredGameList = new ObservableCollection<Game>(GameList);
             });
         }
 
@@ -36,11 +39,50 @@ namespace BacklogTracker.ViewModels
         [ObservableProperty]
         private ObservableCollection<Game> gameList;
 
-        [RelayCommand]
-        private async Task RemoveGameFromList(Game game)
+        [ObservableProperty]
+        private ObservableCollection<Game> searchFilteredGameList;
+
+        [ObservableProperty]
+        private string searchText;
+
+        partial void OnSearchTextChanged(string value)
         {
-            await _localDBService.DeleteGameAsync(game);
-            GameList.Remove(game);
+            PerformSearch(value);
+        }
+
+        [RelayCommand]
+        public async Task PerformSearch(string searchText)
+        {
+            if (string.IsNullOrWhiteSpace(searchText))
+            {
+                SearchFilteredGameList = new ObservableCollection<Game>(GameList);
+                Debug.WriteLine("Showing all games");
+            }
+            else
+            {
+                var filtered = GameList
+                    .Where(game => !string.IsNullOrEmpty(game.Title) &&
+                                   game.Title.Contains(searchText, StringComparison.OrdinalIgnoreCase)).ToList();
+
+                /*
+                SearchFilteredGameList.Clear();
+                foreach (var game in filtered)
+                {
+                    SearchFilteredGameList.Add(game);
+                }
+                */
+
+                SearchFilteredGameList.Clear();
+                foreach (var game in GameList)
+                { 
+                    if (filtered.Contains(game))
+                    {
+                        SearchFilteredGameList.Add(game);
+                    }
+                }
+
+                Debug.WriteLine($"Filtering games: {searchText}");
+            }
         }
 
         [RelayCommand]

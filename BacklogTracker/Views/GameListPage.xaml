@@ -18,13 +18,15 @@
         />
         
         <HorizontalStackLayout Grid.Row="1" Grid.Column="0">
-            <SearchBar MinimumWidthRequest="250" MaximumWidthRequest="500">
+            <SearchBar  x:Name="GameSearchBar"
+                        MinimumWidthRequest="250" MaximumWidthRequest="500" 
+                        Text="{Binding SearchText, Mode=TwoWay}">
                 <SearchBar.Placeholder>Search your game Library</SearchBar.Placeholder>
             </SearchBar>
             <Button Text="Add Game" Command="{Binding GoToAddViewCommand}" />
         </HorizontalStackLayout>
 
-        <CollectionView ItemsSource="{Binding GameList}" Grid.Row="2" Grid.RowSpan="2" Grid.Column="0" Grid.ColumnSpan="2" HorizontalOptions="Start">
+        <CollectionView ItemsSource="{Binding SearchFilteredGameList}" Grid.Row="2" Grid.RowSpan="2" Grid.Column="0" Grid.ColumnSpan="2" HorizontalOptions="Start">
             <CollectionView.ItemsLayout>
                 <GridItemsLayout Orientation="Vertical"
                                  Span="{Binding ColumnSpan}"
