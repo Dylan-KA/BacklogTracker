@@ -5,7 +5,12 @@
              xmlns:viewModel="clr-namespace:BacklogTracker.ViewModels"
              xmlns:models="clr-namespace:BacklogTracker.Models"
              x:DataType="viewModel:GameListViewModel"
+             xmlns:helpers="clr-namespace:BacklogTracker.Helpers"
              >
+    <ContentPage.Resources>
+        <helpers:StatusToColorConverter x:Key="StatusToColorConverter" />
+    </ContentPage.Resources>
+
     <Grid Padding="50" RowDefinitions="100, 50, *" ColumnDefinitions="*, *">
         <Label 
             Text="Game Library"
@@ -15,6 +20,7 @@
             VerticalOptions="Start" 
             HorizontalOptions="Start"
             FontSize="48"
+            FontFamily="RobotoBold"
         />
         
         <HorizontalStackLayout Grid.Row="1" Grid.Column="0">
@@ -36,40 +42,35 @@
                     <Frame  HeightRequest="300"
                             WidthRequest="300"
                             Margin="5"
-                            BackgroundColor="LightGray">
+                            BackgroundColor="{StaticResource Gray300}">
                         <Grid RowDefinitions="*, Auto" Padding="10" ColumnSpacing="10">
                             <!-- Top section -->
                             <VerticalStackLayout Grid.Row="0" Spacing="4">
                                 <!-- Game Title -->
                                 <Label Text="{Binding Title}" 
-                                       FontSize="18" 
-                                       FontAttributes="Bold" 
+                                       FontSize="24" 
+                                       FontFamily="RobotoBold"
                                        TextColor="White"/>
 
                                 <!-- Status Badge -->
-                                <Frame
-                                        BackgroundColor="LightBlue"
-                                        CornerRadius="10"
-                                        WidthRequest="110"
-                                        BorderColor="Transparent"
-                                        Padding="10"
-                                        HorizontalOptions="Start">
-                                    <Label Text="{Binding Status}" 
-                                           TextColor="Black" 
-                                           FontAttributes="Bold"
-                                           Padding="1"
-                                           HorizontalOptions="Start" />
+                                <Frame  Style="{StaticResource StatusFrameStyle}" 
+                                        BackgroundColor="{Binding Status, Converter={StaticResource StatusToColorConverter}}">
+                                    <Label Text="{Binding Status}" Style="{StaticResource StatusLabelStyle}" />
                                 </Frame>
 
                                 <!-- Platform -->
                                 <Label Text="{Binding Platform}" 
-                                       TextColor="White" />
+                                       TextColor="White"
+                                       FontFamily="RobotoBold"
+                                       />
                             </VerticalStackLayout>
 
                             <!-- Bottom section -->
                             <Grid Grid.Row="1" VerticalOptions="Center" ColumnDefinitions="*, Auto" ColumnSpacing="10">
                                 <!-- Hours played -->
                                 <Label Text="{Binding HoursPlayed, StringFormat='{}{0} h'}" 
+                                       FontFamily="RobotoBold"
+                                       FontSize="20"
                                        TextColor="White" 
                                        VerticalOptions="Center"
                                        Grid.Column="0" />
@@ -79,7 +80,7 @@
                                         Command="{Binding Source={RelativeSource AncestorType={x:Type viewModel:GameListViewModel}}, Path=GoToEditViewCommand}"
                                         CommandParameter="{Binding .}" 
                                         FontSize="12"
-                                        FontAttributes="Bold"
+                                        FontFamily="RobotoBold"
                                         Padding="10,2"
                                         VerticalOptions="Center"
                                         Grid.Column="1"/>
