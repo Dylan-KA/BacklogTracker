@@ -6,17 +6,7 @@
              xmlns:models="clr-namespace:BacklogTracker.Models"
              x:DataType="viewModel:GameListViewModel"
              >
-    <Grid Padding="50">
-        <Grid.RowDefinitions>
-            <RowDefinition Height="100"/>
-            <RowDefinition Height="50"/>
-            <RowDefinition />
-        </Grid.RowDefinitions>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition />
-            <ColumnDefinition />
-        </Grid.ColumnDefinitions>
-
+    <Grid Padding="50" RowDefinitions="100, 50, *" ColumnDefinitions="*, *">
         <Label 
             Text="Game Library"
             Grid.Row="0"

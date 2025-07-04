@@ -5,19 +5,7 @@
              xmlns:viewModel="clr-namespace:BacklogTracker.ViewModels"
              x:DataType="viewModel:GameDetailsViewModel"
              >
-    <Grid Padding="50">
-        <Grid.RowDefinitions>
-            <RowDefinition Height="100"/>
-            <RowDefinition />
-            <RowDefinition />
-            <RowDefinition Height="50" />
-        </Grid.RowDefinitions>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition />
-            <ColumnDefinition />
-            <ColumnDefinition />
-        </Grid.ColumnDefinitions>
-
+    <Grid Padding="50" RowDefinitions="100, *, *, 50" ColumnDefinitions="*, *, *">
         <Entry
             Text="{Binding Game.Title}"
             Placeholder="Enter Game Title"
