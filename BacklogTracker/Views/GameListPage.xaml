@@ -40,7 +40,6 @@
             <CollectionView.ItemTemplate>
                 <DataTemplate x:DataType="models:Game">
                     <Frame  HeightRequest="300"
-                            WidthRequest="300"
                             Margin="5"
                             BackgroundColor="{StaticResource Gray300}">
                         <Grid RowDefinitions="*, Auto" Padding="10" ColumnSpacing="10">
