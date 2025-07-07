@@ -22,15 +22,15 @@
             FontSize="48"
             FontFamily="RobotoBold"
         />
-        
-        <HorizontalStackLayout Grid.Row="1" Grid.Column="0">
+
+        <HorizontalStackLayout Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" HeightRequest="50" Spacing="10">
+            <Button Text="Add Game" Command="{Binding GoToAddViewCommand}" />
             <SearchBar MinimumWidthRequest="250" MaximumWidthRequest="500">
                 <SearchBar.Placeholder>Search your game Library</SearchBar.Placeholder>
             </SearchBar>
-            <Button Text="Add Game" Command="{Binding GoToAddViewCommand}" />
         </HorizontalStackLayout>
 
-        <CollectionView ItemsSource="{Binding SearchFilteredGameList}" Grid.Row="2" Grid.RowSpan="2" Grid.Column="0" Grid.ColumnSpan="2" HorizontalOptions="Start">
+        <CollectionView ItemsSource="{Binding SearchFilteredGameList}" Grid.Row="2" Grid.RowSpan="2" Grid.Column="0" Grid.ColumnSpan="2">
             <CollectionView.ItemsLayout>
                 <GridItemsLayout Orientation="Vertical"
                                  Span="{Binding ColumnSpan}"
