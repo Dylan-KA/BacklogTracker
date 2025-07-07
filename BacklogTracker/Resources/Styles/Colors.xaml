@@ -30,13 +30,22 @@
 
     <Color x:Key="FilterDisabled">#D4E2ED</Color>
     <Color x:Key="FilterEnabled">#7AA5C6</Color>
-    
+    <Color x:Key="FilterHover">#B0C2D1</Color>
+
     <Color x:Key="BacklogColor">#78FF95</Color>
+    <Color x:Key="BacklogColorDarker">#5FCC7A</Color>
     <Color x:Key="PlayingColor">#FFD078</Color>
+    <Color x:Key="PlayingColorDarker">#D0A85F</Color>
     <Color x:Key="CompletedColor">#78DBFF</Color>
+    <Color x:Key="CompletedColorDarker">#5BB0CC</Color>
 
     <Color x:Key="ConfirmColor">#188FBA</Color>
+    <Color x:Key="ConfirmColorDarker">#126F94</Color>
     <Color x:Key="DenyColor">#F84D4D</Color>
+    <Color x:Key="DenyColorDarker">#C23C3C</Color>
+
+    <Color x:Key="AddButton">#3AC9A8</Color>
+    <Color x:Key="AddButtonDark">#2E9E85</Color>
 
     <SolidColorBrush x:Key="PrimaryBrush" Color="{StaticResource Primary}"/>
     <SolidColorBrush x:Key="SecondaryBrush" Color="{StaticResource Secondary}"/>

@@ -30,6 +30,26 @@
                         Text="{Binding SearchText, Mode=TwoWay}">
                 <SearchBar.Placeholder>Search your game Library</SearchBar.Placeholder>
             </SearchBar>
+            <Button Text="Reset Filter"
+                    Style="{DynamicResource FilterDisabledStyle}"
+                    IsVisible="{Binding IsResetButtonVisible}"
+                    Command="{Binding ToggleButtonVisibilityCommand}"
+                    CommandParameter="0"/>
+            <Button Text="Backlog"
+                    Style="{DynamicResource BacklogFilterStyle}"
+                    IsVisible="{Binding IsBacklogButtonVisible}"
+                    Command="{Binding ToggleButtonVisibilityCommand}"
+                    CommandParameter="1"/>
+            <Button Text="Playing"
+                    Style="{DynamicResource PlayingFilterStyle}"
+                    IsVisible="{Binding IsPlayingButtonVisible}"
+                    Command="{Binding ToggleButtonVisibilityCommand}"
+                    CommandParameter="2"/>
+            <Button Text="Completed"
+                    Style="{DynamicResource CompletedFilterStyle}"
+                    IsVisible="{Binding IsCompletedButtonVisible}"
+                    Command="{Binding ToggleButtonVisibilityCommand}"
+                    CommandParameter="3"/>
         </HorizontalStackLayout>
 
         <CollectionView ItemsSource="{Binding SearchFilteredGameList}" Grid.Row="2" Grid.RowSpan="2" Grid.Column="0" Grid.ColumnSpan="2">
@@ -54,7 +74,7 @@
                                        TextColor="White"/>
 
                                 <!-- Status Badge -->
-                                <Frame  Style="{StaticResource StatusFrameStyle}" 
+                                <Frame  Style="{StaticResource StatusFrameStyle}"
                                         BackgroundColor="{Binding Status, Converter={StaticResource StatusToColorConverter}}">
                                     <Label Text="{Binding Status}" Style="{StaticResource StatusLabelStyle}" />
                                 </Frame>

@@ -52,7 +52,7 @@
         </VerticalStackLayout>
 
         <HorizontalStackLayout Grid.Row="4" Grid.Column="0" HorizontalOptions="Start" VerticalOptions="End" Spacing="15">
-            <Button Text="Cancel" Command="{Binding CancelCommand}" Style="{StaticResource ConfirmButtonStyle}" BackgroundColor="Gray"/>
+            <Button Text="Cancel" Command="{Binding CancelCommand}" Style="{StaticResource NeutralButtonStyle}"/>
         </HorizontalStackLayout>
 
         <HorizontalStackLayout Grid.Row="4" Grid.Column="4" HorizontalOptions="End" VerticalOptions="End" Spacing="15">

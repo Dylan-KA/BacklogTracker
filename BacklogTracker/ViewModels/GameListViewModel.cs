@@ -13,10 +13,17 @@ namespace BacklogTracker.ViewModels
 
         public GameListViewModel(LocalDBService dBService)
         {
+            // Get Game List from database
             _localDBService = dBService;
             GameList = new ObservableCollection<Game>();
             SearchFilteredGameList = new ObservableCollection<Game>();
             _ = LoadGamesFromDatabase();
+
+            // Set Filter buttons to visible
+            IsResetButtonVisible = false;
+            IsBacklogButtonVisible = true;
+            IsPlayingButtonVisible = true;
+            IsCompletedButtonVisible = true;
         }
 
         public async Task LoadGamesFromDatabase()
@@ -71,6 +78,49 @@ namespace BacklogTracker.ViewModels
                 }
                 
                 //Debug.WriteLine($"Filtering games by: {searchText}");
+            }
+        }
+
+        [ObservableProperty]
+        private bool isResetButtonVisible;
+        
+        [ObservableProperty]
+        private bool isBacklogButtonVisible;
+
+        [ObservableProperty]
+        private bool isPlayingButtonVisible;
+
+        [ObservableProperty]
+        private bool isCompletedButtonVisible;
+
+        [ObservableProperty]
+        private Style backlogButtonStyle;
+
+        [ObservableProperty]
+        private Style playingButtonStyle;
+
+        [ObservableProperty]
+        private Style completedButtonStyle;
+
+
+        [RelayCommand]
+        public void ToggleButtonVisibility(string buttonNumberString)
+        {
+            if (int.TryParse(buttonNumberString, out int buttonNumber))
+            {
+                if (buttonNumber == 0)
+                {
+                    IsResetButtonVisible = false;
+                    IsBacklogButtonVisible = true;
+                    IsPlayingButtonVisible = true;
+                    IsCompletedButtonVisible = true;
+                    return;
+                }
+
+                IsResetButtonVisible = true;
+                IsBacklogButtonVisible = buttonNumber == 1;
+                IsPlayingButtonVisible = buttonNumber == 2;
+                IsCompletedButtonVisible = buttonNumber == 3;
             }
         }
 
