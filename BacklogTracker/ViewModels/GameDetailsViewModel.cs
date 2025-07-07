@@ -42,5 +42,11 @@ namespace BacklogTracker.ViewModels
             await Shell.Current.GoToAsync("..");
         }
 
+        [RelayCommand]
+        async Task Cancel()
+        {
+            await Shell.Current.GoToAsync("..");
+        }
+
     }
 }

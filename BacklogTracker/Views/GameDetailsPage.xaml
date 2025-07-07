@@ -51,6 +51,10 @@
             </Frame>
         </VerticalStackLayout>
 
+        <HorizontalStackLayout Grid.Row="4" Grid.Column="0" HorizontalOptions="Start" VerticalOptions="End" Spacing="15">
+            <Button Text="Cancel" Command="{Binding CancelCommand}" Style="{StaticResource ConfirmButtonStyle}" BackgroundColor="Gray"/>
+        </HorizontalStackLayout>
+
         <HorizontalStackLayout Grid.Row="4" Grid.Column="4" HorizontalOptions="End" VerticalOptions="End" Spacing="15">
             <Button Text="Save" Command="{Binding SaveGameCommand}" Style="{StaticResource ConfirmButtonStyle}"/>
             <Button Text="Delete" Command="{Binding RemoveGameCommand}" Style="{StaticResource DenyButtonStyle}"/>
