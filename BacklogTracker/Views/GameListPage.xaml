@@ -25,7 +25,9 @@
 
         <HorizontalStackLayout Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" HeightRequest="50" Spacing="10">
             <Button Text="Add Game" Command="{Binding GoToAddViewCommand}" />
-            <SearchBar MinimumWidthRequest="250" MaximumWidthRequest="500">
+            <SearchBar  x:Name="GameSearchBar"
+                        MinimumWidthRequest="250" MaximumWidthRequest="500"
+                        Text="{Binding SearchText, Mode=TwoWay}">
                 <SearchBar.Placeholder>Search your game Library</SearchBar.Placeholder>
             </SearchBar>
         </HorizontalStackLayout>

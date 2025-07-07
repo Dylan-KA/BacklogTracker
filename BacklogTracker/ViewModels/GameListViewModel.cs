@@ -56,32 +56,21 @@ namespace BacklogTracker.ViewModels
             if (string.IsNullOrWhiteSpace(searchText))
             {
                 SearchFilteredGameList = new ObservableCollection<Game>(GameList);
-                Debug.WriteLine("Showing all games");
+                //Debug.WriteLine("Showing all games");
             }
             else
             {
                 var filtered = GameList
                     .Where(game => !string.IsNullOrEmpty(game.Title) &&
                                    game.Title.Contains(searchText, StringComparison.OrdinalIgnoreCase)).ToList();
-
-                /*
+             
                 SearchFilteredGameList.Clear();
                 foreach (var game in filtered)
                 {
                     SearchFilteredGameList.Add(game);
                 }
-                */
-
-                SearchFilteredGameList.Clear();
-                foreach (var game in GameList)
-                { 
-                    if (filtered.Contains(game))
-                    {
-                        SearchFilteredGameList.Add(game);
-                    }
-                }
-
-                Debug.WriteLine($"Filtering games: {searchText}");
+                
+                //Debug.WriteLine($"Filtering games by: {searchText}");
             }
         }
 
