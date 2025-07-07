@@ -268,7 +268,7 @@
     </Style>
 
     <Style TargetType="SearchBar">
-        <Setter Property="TextColor" Value="{AppThemeBinding Light={StaticResource Gray900}, Dark={StaticResource White}}" />
+        <Setter Property="TextColor" Value="{AppThemeBinding Light={StaticResource Gray900}, Dark={StaticResource Gray900}}" />
         <Setter Property="PlaceholderColor" Value="{StaticResource Gray500}" />
         <Setter Property="CancelButtonColor" Value="{StaticResource Gray900}" />
         <Setter Property="BackgroundColor" Value="{StaticResource FilterDisabled}" />
@@ -436,5 +436,15 @@
         <Setter Property="Padding" Value="1" />
         <Setter Property="HorizontalOptions" Value="Start" />
     </Style>
-
+    
+    <!-- Confirm and Deny Buttons-->
+    <Style x:Key="ConfirmButtonStyle" TargetType="Button">
+        <Setter Property="BackgroundColor" Value="{StaticResource ConfirmColor}"/>
+        <Setter Property="TextColor" Value="White"/>
+    </Style>
+    <Style x:Key="DenyButtonStyle" TargetType="Button">
+        <Setter Property="BackgroundColor" Value="{StaticResource DenyColor}"/>
+        <Setter Property="TextColor" Value="White"/>
+    </Style>
+    
 </ResourceDictionary>

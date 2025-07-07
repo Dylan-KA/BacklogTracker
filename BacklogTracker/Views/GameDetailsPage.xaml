@@ -51,9 +51,9 @@
             </Frame>
         </VerticalStackLayout>
 
-        <HorizontalStackLayout Grid.Row="4" Grid.Column="4" HorizontalOptions="End" VerticalOptions="End">
-            <Button Text="Save" Command="{Binding SaveGameCommand}"/>
-            <Button Text="Delete" Command="{Binding RemoveGameCommand}"/>
+        <HorizontalStackLayout Grid.Row="4" Grid.Column="4" HorizontalOptions="End" VerticalOptions="End" Spacing="15">
+            <Button Text="Save" Command="{Binding SaveGameCommand}" Style="{StaticResource ConfirmButtonStyle}"/>
+            <Button Text="Delete" Command="{Binding RemoveGameCommand}" Style="{StaticResource DenyButtonStyle}"/>
         </HorizontalStackLayout>
         
     </Grid>

@@ -11,7 +11,7 @@
         <helpers:StatusToColorConverter x:Key="StatusToColorConverter" />
     </ContentPage.Resources>
 
-    <Grid Padding="50" RowDefinitions="100, 50, *" ColumnDefinitions="*, *">
+    <Grid Padding="50" RowDefinitions="100, 100, *" ColumnDefinitions="*, *">
         <Label 
             Text="Game Library"
             Grid.Row="0"
@@ -22,12 +22,12 @@
             FontSize="48"
             FontFamily="RobotoBold"
         />
-        
-        <HorizontalStackLayout Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2">
+
+        <HorizontalStackLayout Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" HeightRequest="50" Spacing="10">
+            <Button Text="Add Game" Command="{Binding GoToAddViewCommand}"/>
             <SearchBar MinimumWidthRequest="250" MaximumWidthRequest="500">
                 <SearchBar.Placeholder>Search your game Library</SearchBar.Placeholder>
             </SearchBar>
-            <Button Text="Add Game" Command="{Binding GoToAddViewCommand}" />
         </HorizontalStackLayout>
 
         <CollectionView ItemsSource="{Binding GameList}" Grid.Row="2" Grid.RowSpan="2" Grid.Column="0" Grid.ColumnSpan="2">
@@ -78,6 +78,7 @@
                                 <Button Text="Edit"
                                         Command="{Binding Source={RelativeSource AncestorType={x:Type viewModel:GameListViewModel}}, Path=GoToEditViewCommand}"
                                         CommandParameter="{Binding .}" 
+                                        Style="{StaticResource ConfirmButtonStyle}"
                                         FontSize="12"
                                         FontFamily="RobotoBold"
                                         Padding="10,2"

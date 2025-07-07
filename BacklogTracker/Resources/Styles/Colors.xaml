@@ -35,6 +35,9 @@
     <Color x:Key="PlayingColor">#FFD078</Color>
     <Color x:Key="CompletedColor">#78DBFF</Color>
 
+    <Color x:Key="ConfirmColor">#188FBA</Color>
+    <Color x:Key="DenyColor">#F84D4D</Color>
+
     <SolidColorBrush x:Key="PrimaryBrush" Color="{StaticResource Primary}"/>
     <SolidColorBrush x:Key="SecondaryBrush" Color="{StaticResource Secondary}"/>
     <SolidColorBrush x:Key="TertiaryBrush" Color="{StaticResource Tertiary}"/>
