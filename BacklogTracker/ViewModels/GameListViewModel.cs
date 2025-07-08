@@ -52,33 +52,36 @@ namespace BacklogTracker.ViewModels
         [ObservableProperty]
         private string searchText;
 
+        [ObservableProperty]
+        private GameStatus? selectedStatusFilter = null;
+
+
         partial void OnSearchTextChanged(string value)
         {
-            PerformSearch(value);
+            ApplyFilters();
         }
 
         [RelayCommand]
-        public async Task PerformSearch(string searchText)
+        public void ApplyFilters()
         {
-            if (string.IsNullOrWhiteSpace(searchText))
+            var filteredList = GameList.AsEnumerable();
+
+            // Apply search text
+            if (!string.IsNullOrWhiteSpace(SearchText))
             {
-                SearchFilteredGameList = new ObservableCollection<Game>(GameList);
-                //Debug.WriteLine("Showing all games");
-            }
-            else
-            {
-                var filtered = GameList
+                filteredList = filteredList
                     .Where(game => !string.IsNullOrEmpty(game.Title) &&
-                                   game.Title.Contains(searchText, StringComparison.OrdinalIgnoreCase)).ToList();
-             
-                SearchFilteredGameList.Clear();
-                foreach (var game in filtered)
-                {
-                    SearchFilteredGameList.Add(game);
-                }
-                
-                //Debug.WriteLine($"Filtering games by: {searchText}");
+                                   game.Title.Contains(SearchText, StringComparison.OrdinalIgnoreCase));
             }
+
+            // Apply status filter
+            if (SelectedStatusFilter.HasValue)
+            {
+                filteredList = filteredList
+                    .Where(game => game.Status == SelectedStatusFilter.Value);
+            }
+
+            SearchFilteredGameList = new ObservableCollection<Game>(filteredList);
         }
 
         [ObservableProperty]
@@ -102,27 +105,47 @@ namespace BacklogTracker.ViewModels
         [ObservableProperty]
         private Style completedButtonStyle;
 
-
         [RelayCommand]
-        public void ToggleButtonVisibility(string buttonNumberString)
+        public void FilterButtonAction(string buttonNumberString)
         {
             if (int.TryParse(buttonNumberString, out int buttonNumber))
             {
-                if (buttonNumber == 0)
+                switch (buttonNumber)
                 {
-                    IsResetButtonVisible = false;
-                    IsBacklogButtonVisible = true;
-                    IsPlayingButtonVisible = true;
-                    IsCompletedButtonVisible = true;
-                    return;
+                    case 0:
+                        SelectedStatusFilter = null;
+                        IsResetButtonVisible = false;
+                        IsBacklogButtonVisible = true;
+                        IsPlayingButtonVisible = true;
+                        IsCompletedButtonVisible = true;
+                        break;
+                    case 1:
+                        SelectedStatusFilter = GameStatus.Backlog;
+                        IsResetButtonVisible = true;
+                        IsBacklogButtonVisible = true;
+                        IsPlayingButtonVisible = false;
+                        IsCompletedButtonVisible = false;
+                        break;
+                    case 2:
+                        SelectedStatusFilter = GameStatus.Playing;
+                        IsResetButtonVisible = true;
+                        IsBacklogButtonVisible = false;
+                        IsPlayingButtonVisible = true;
+                        IsCompletedButtonVisible = false;
+                        break;
+                    case 3:
+                        SelectedStatusFilter = GameStatus.Completed;
+                        IsResetButtonVisible = true;
+                        IsBacklogButtonVisible = false;
+                        IsPlayingButtonVisible = false;
+                        IsCompletedButtonVisible = true;
+                        break;
                 }
 
-                IsResetButtonVisible = true;
-                IsBacklogButtonVisible = buttonNumber == 1;
-                IsPlayingButtonVisible = buttonNumber == 2;
-                IsCompletedButtonVisible = buttonNumber == 3;
+                ApplyFilters();
             }
         }
+
 
         [RelayCommand]
         private async Task GoToEditView(Game game)

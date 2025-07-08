@@ -33,22 +33,22 @@
             <Button Text="Reset Filter"
                     Style="{DynamicResource FilterDisabledStyle}"
                     IsVisible="{Binding IsResetButtonVisible}"
-                    Command="{Binding ToggleButtonVisibilityCommand}"
+                    Command="{Binding FilterButtonActionCommand}"
                     CommandParameter="0"/>
             <Button Text="Backlog"
                     Style="{DynamicResource BacklogFilterStyle}"
                     IsVisible="{Binding IsBacklogButtonVisible}"
-                    Command="{Binding ToggleButtonVisibilityCommand}"
+                    Command="{Binding FilterButtonActionCommand}"
                     CommandParameter="1"/>
             <Button Text="Playing"
                     Style="{DynamicResource PlayingFilterStyle}"
                     IsVisible="{Binding IsPlayingButtonVisible}"
-                    Command="{Binding ToggleButtonVisibilityCommand}"
+                    Command="{Binding FilterButtonActionCommand}"
                     CommandParameter="2"/>
             <Button Text="Completed"
                     Style="{DynamicResource CompletedFilterStyle}"
                     IsVisible="{Binding IsCompletedButtonVisible}"
-                    Command="{Binding ToggleButtonVisibilityCommand}"
+                    Command="{Binding FilterButtonActionCommand}"
                     CommandParameter="3"/>
         </HorizontalStackLayout>
 

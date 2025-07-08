@@ -22,7 +22,7 @@ public partial class GameListPage : ContentPage
         if (BindingContext is GameListViewModel viewModel)
         {
             _ = viewModel.LoadGamesFromDatabase();
-            viewModel.ToggleButtonVisibility("0");
+            viewModel.FilterButtonAction("0");
         }
     }
     
