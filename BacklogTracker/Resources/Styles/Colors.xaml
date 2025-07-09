@@ -44,8 +44,8 @@
     <Color x:Key="DenyColor">#F84D4D</Color>
     <Color x:Key="DenyColorDarker">#C23C3C</Color>
 
-    <Color x:Key="AddButton">#3AC9A8</Color>
-    <Color x:Key="AddButtonDark">#2E9E85</Color>
+    <Color x:Key="AddButton">#8AB0CE</Color>
+    <Color x:Key="AddButtonDark">#709BBD</Color>
 
     <SolidColorBrush x:Key="PrimaryBrush" Color="{StaticResource Primary}"/>
     <SolidColorBrush x:Key="SecondaryBrush" Color="{StaticResource Secondary}"/>

@@ -16,7 +16,8 @@
             Grid.ColumnSpan="3"
             FontSize="48"
         />
-
+        
+        <!--
         <Frame  Grid.Column="0"
                 Grid.Row="1"
                 HorizontalOptions="Fill"
@@ -27,20 +28,23 @@
                     HorizontalOptions="Center"
                     TextColor="Black" />
         </Frame>
-
-        <VerticalStackLayout Grid.Column="0" Grid.Row="2" WidthRequest="200" HorizontalOptions="Start" VerticalOptions="Center">
+        -->
+        
+        <VerticalStackLayout Grid.Column="0" Grid.Row="1" WidthRequest="200" HorizontalOptions="Start" VerticalOptions="Center">
             <Picker Title="Game Platform" ItemsSource="{Binding GamePlatformList}" SelectedItem="{Binding Game.Platform}" Margin="0,0,0,20"/>
             <Picker Title="Game Status" ItemsSource="{Binding GameStatusList}" SelectedItem="{Binding Game.Status}" Margin="0,0,0,20"/>
-            <Label Text="Hours Played" TextColor="LightGray" Margin="0,0,0,5"/>
+            <Label Text="Hours Played" Margin="0,0,0,5"/>
             <HorizontalStackLayout>
                 <Label Text="{Binding Game.HoursPlayed}" Margin="0,0,20,0"/>
                 <Stepper Minimum="0" Maximum="10000" Increment="1" Value="{Binding Game.HoursPlayed, Mode=TwoWay}"/>
             </HorizontalStackLayout>
         </VerticalStackLayout>
 
+        <!--
         <VerticalStackLayout Grid.Column="1" Grid.Row="1" HorizontalOptions="Center">
             <Label Text="Rating"/>
         </VerticalStackLayout>
+        -->
         
         <VerticalStackLayout Grid.Column="2" Grid.Row="1" Grid.RowSpan="2" HorizontalOptions="Fill" VerticalOptions="Fill">
             <Label Text="Notes"/>
