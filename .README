@@ -1,0 +1,13 @@
+# BacklogTracker
+
+## 🔨 Build Standalone .EXE
+
+Use this command to build a self-contained, single-file Windows executable:
+
+dotnet publish -f:net8.0-windows10.0.19041.0 -c Release -r win-x64 -p:PublishSingleFile=true --self-contained true -o win-exe
+
+Make sure your .csproj includes this to disable MSIX packaging:
+
+<WindowsPackageType>None</WindowsPackageType>
+
+The output .exe will be located in the win-exe/ folder.
